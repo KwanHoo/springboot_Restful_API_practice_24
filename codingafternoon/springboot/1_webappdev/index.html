@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Sample</h1>
+
+<div id="list"></div>
+<button id="btn">조회하기</button>
+<script>
+    async function list() {
+        try {
+            let response = await fetch("http://localhost:8080/posts/list");
+            if (!response.ok) {
+                throw new Error('서버로부터 데이터를 가져오는데 문제가 발생했습니다.');
+            }
+            let data = await response.text();
+            document.getElementById("list").innerHTML = data;
+        } catch (error) {
+            console.error('데이터를 가져오는 동안 오류가 발생했습니다:', error);
+            // 오류 메시지를 사용자에게 표시하거나 다른 조치를 취할 수 있습니다.
+        }
+    }
+
+    document.getElementById("btn").addEventListener("click", list);
+</script>
+</body>
+</html>
